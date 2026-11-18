@@ -1,17 +1,94 @@
-window, window.background { background-color: transparent; color: #eef0f7; }
-headerbar.chrome { background: rgba(18, 22, 34, 0.89); color: #eef0f7; border-radius: 16px 16px 0 0; border: 0; box-shadow: none; min-height: 40px; }
-.shell { background: rgba(17, 20, 29, 0.77); border-radius: 0 0 16px 16px; padding: 10px 12px 12px; }
-.panel { background: rgba(20, 22, 28, 0.94); border-radius: 12px; }
-list { background: transparent; color: #edf0f8; padding: 7px; }
-row { padding: 9px; border-radius: 7px; }
-row:selected { background: #37405a; }
-.pill { background: rgba(177, 182, 201, 0.19); border-radius: 20px; padding: 7px 14px; }
-.muted { color: #c5cada; }
-button { background: rgba(150, 160, 191, 0.14); color: #f1f3fa; border-radius: 9px; border: 0; box-shadow: none; }
-button:hover { background: #414959; }
-button:disabled { color: #a7abc0; opacity: 0.55; }
-button.dot { min-width: 11px; min-height: 11px; padding: 0; margin: 0; border-radius: 100%; }
-button.yellow { background: #f2b938; }
-button.green { background: #78c958; }
-button.red { background: #ed685b; }
-dialog { background: #232733; color: #f4f4f7; }
+window.relay-window {
+  background-color: transparent;
+  color: #e8e9f0;
+}
+.relay-window decoration { border-radius: 17px; }
+headerbar.chrome {
+  background: rgba(17, 19, 29, 0.94);
+  border-radius: 16px 16px 0 0;
+  border: 0;
+  box-shadow: none;
+  color: #d8dae6;
+  min-height: 30px;
+  padding: 2px 9px;
+}
+.window-title { font-size: 12px; font-weight: 600; }
+.workspace {
+  background: rgba(17, 19, 29, 0.83);
+  border-radius: 0 0 16px 16px;
+  padding: 0 13px 5px;
+}
+.toolbar { padding: 10px 3px 14px; }
+.heading { color: #f0f0f6; font-size: 23px; font-weight: 700; }
+.panel {
+  background: rgba(19, 20, 25, 0.96);
+  border: 1px solid rgba(190, 194, 222, 0.11);
+  border-radius: 12px;
+}
+.transfers { background: transparent; color: #e9eaf0; padding: 6px; }
+.transfers row { padding: 12px 14px; border-radius: 8px; }
+.transfers row:hover { background: rgba(157, 168, 214, 0.08); }
+.transfers row:selected { background: rgba(124, 141, 220, 0.16); }
+.transfer-name { font-weight: 600; }
+.transfer-progress trough { background: #2a2c38; border: 0; border-radius: 3px; min-height: 4px; }
+.transfer-progress progress { background: #929fe1; border: 0; border-radius: 3px; }
+.empty-icon {
+  background: #232635;
+  color: #b6bde6;
+  min-width: 52px;
+  min-height: 52px;
+  border-radius: 13px;
+  margin-bottom: 3px;
+}
+.empty-title { color: #e9eaf3; font-size: 15px; font-weight: 700; }
+.muted { color: #aeb2c3; font-size: 12px; }
+.actions { padding: 9px 2px 0; }
+.footer { padding: 5px 2px 1px; }
+.relay-window button, .relay-dialog button, .menu-content button {
+  background: transparent;
+  color: #e1e3ef;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  box-shadow: none;
+  text-shadow: none;
+  min-height: 28px;
+  padding: 2px 10px;
+}
+.relay-window button:hover, .relay-dialog button:hover, .menu-content button:hover { background: #34384b; }
+.relay-window button:focus-visible, .relay-dialog button:focus-visible, .menu-content button:focus-visible {
+  outline: 2px solid #aeb9f4;
+  outline-offset: -2px;
+}
+.relay-window button.primary, .relay-dialog button.primary {
+  background: #aab6ef;
+  color: #151a2f;
+  font-weight: 700;
+}
+.relay-window button.primary:hover, .relay-dialog button.primary:hover { background: #c1caf4; }
+.relay-window button.secondary, .relay-dialog button.secondary {
+  background: #252837;
+  border-color: #35394c;
+}
+.relay-window button.secondary:hover, .relay-dialog button.secondary:hover { background: #33374b; }
+.relay-window button.danger, .relay-dialog button.danger { color: #ffb3bd; }
+.menu-content button:disabled { color: #777c90; }
+.relay-window .settings button { min-width: 27px; min-height: 27px; padding: 0; }
+.relay-window button.window-control { min-width: 24px; min-height: 24px; padding: 0; }
+.window-control .dot {
+  min-width: 12px;
+  min-height: 12px;
+  margin: 5px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+  color: transparent;
+}
+.window-control:hover .dot, .window-control:focus-visible .dot { color: #20232e; }
+.window-control.yellow .dot { background: #efbb43; }
+.window-control.green .dot { background: #79c961; }
+.window-control.red .dot { background: #ee736c; }
+.relay-dialog { background: #1d202b; color: #edf0f8; }
+.relay-dialog entry { background: #151722; color: #edf0f8; border: 1px solid #383d54; border-radius: 8px; }
+.relay-dialog .dialog-content { padding: 15px; }
+.menu-content { background: #232635; border-radius: 9px; padding: 5px; }
+.field-error { color: #ffb3bd; }

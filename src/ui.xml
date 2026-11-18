@@ -1,20 +1,33 @@
 <interface>
+  <object class="GtkPopover" id="preferences">
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="spacing">5</property>
+        <style><class name="menu-content"/></style>
+        <child><object class="GtkButton" id="check"><property name="label">Check for updates</property><style><class name="menu-item"/></style></object></child>
+        <child><object class="GtkButton" id="update"><property name="label">Install update</property><style><class name="menu-item"/></style></object></child>
+      </object>
+    </child>
+  </object>
   <object class="GtkWindow" id="window">
     <property name="title">Relay</property>
-    <property name="default-width">850</property>
-    <property name="default-height">500</property>
+    <property name="default-width">800</property>
+    <property name="default-height">520</property>
+    <style><class name="relay-window"/></style>
     <child type="titlebar">
       <object class="GtkHeaderBar">
         <property name="show-title-buttons">false</property>
         <style><class name="chrome"/></style>
-        <property name="title-widget"><object class="GtkLabel"><property name="label">Relay</property></object></property>
-        <child type="start"><object class="GtkButton" id="add"><property name="label">＋ Add</property></object></child>
+        <property name="title-widget">
+          <object class="GtkLabel"><property name="label">Relay</property><style><class name="window-title"/></style></object>
+        </property>
         <child type="end">
           <object class="GtkBox">
-            <property name="spacing">8</property>
-            <child><object class="GtkButton" id="min"><property name="tooltip-text">Minimize</property><style><class name="dot"/><class name="yellow"/></style></object></child>
-            <child><object class="GtkButton" id="max"><property name="tooltip-text">Maximize or restore</property><style><class name="dot"/><class name="green"/></style></object></child>
-            <child><object class="GtkButton" id="close"><property name="tooltip-text">Close</property><style><class name="dot"/><class name="red"/></style></object></child>
+            <property name="spacing">1</property>
+            <child><object class="GtkButton" id="min"><property name="tooltip-text">Minimize</property><style><class name="window-control"/><class name="yellow"/></style><child><object class="GtkLabel"><property name="label">−</property><style><class name="dot"/></style></object></child></object></child>
+            <child><object class="GtkButton" id="max"><property name="tooltip-text">Maximize or restore</property><style><class name="window-control"/><class name="green"/></style><child><object class="GtkLabel"><property name="label">↗</property><style><class name="dot"/></style></object></child></object></child>
+            <child><object class="GtkButton" id="close"><property name="tooltip-text">Close</property><style><class name="window-control"/><class name="red"/></style><child><object class="GtkLabel"><property name="label">×</property><style><class name="dot"/></style></object></child></object></child>
           </object>
         </child>
       </object>
@@ -22,29 +35,86 @@
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>
-        <property name="spacing">12</property>
-        <style><class name="shell"/></style>
-        <child><object class="GtkBox"><property name="spacing">7</property>
-          <child><object class="GtkLabel"><property name="label">Direct downloads</property><property name="hexpand">true</property><style><class name="pill"/></style></object></child>
-          <child><object class="GtkButton" id="torrents"><property name="label">Torrents</property></object></child>
-        </object></child>
-        <child><object class="GtkScrolledWindow">
-          <property name="vexpand">true</property>
-          <property name="min-content-height">190</property>
-          <style><class name="panel"/></style>
-          <child><object class="GtkListBox" id="list"><property name="selection-mode">single</property></object></child>
-        </object></child>
-        <child><object class="GtkLabel" id="status"><property name="xalign">0</property><property name="wrap">true</property><style><class name="muted"/></style></object></child>
-        <child><object class="GtkBox"><property name="spacing">6</property>
-          <child><object class="GtkButton" id="pause"><property name="label">Pause</property></object></child>
-          <child><object class="GtkButton" id="resume"><property name="label">Resume</property></object></child>
-          <child><object class="GtkButton" id="replace"><property name="label">Update link</property></object></child>
-          <child><object class="GtkButton" id="restart"><property name="label">Restart</property></object></child>
-          <child><object class="GtkButton" id="remove"><property name="label">Remove</property></object></child>
-          <child><object class="GtkLabel"><property name="hexpand">true</property></object></child>
-          <child><object class="GtkButton" id="check"><property name="label">Check updates</property></object></child>
-          <child><object class="GtkButton" id="update"><property name="label">Update now</property></object></child>
-        </object></child>
+        <style><class name="workspace"/></style>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">8</property>
+            <style><class name="toolbar"/></style>
+            <child>
+              <object class="GtkLabel"><property name="label">Downloads</property><property name="xalign">0</property><property name="hexpand">true</property><style><class name="heading"/></style></object>
+            </child>
+            <child>
+              <object class="GtkButton" id="torrents">
+                <property name="label">Torrents</property>
+                <style><class name="secondary"/></style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="add">
+                <child>
+                  <object class="GtkBox">
+                    <property name="spacing">7</property>
+                    <child><object class="GtkImage"><property name="icon-name">list-add-symbolic</property></object></child>
+                    <child><object class="GtkLabel"><property name="label">Add link</property></object></child>
+                  </object>
+                </child>
+                <style><class name="primary"/></style>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkOverlay">
+            <property name="vexpand">true</property>
+            <style><class name="panel"/></style>
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="hscrollbar-policy">never</property>
+                <property name="min-content-height">210</property>
+                <child><object class="GtkListBox" id="list"><property name="selection-mode">single</property><style><class name="transfers"/></style></object></child>
+              </object>
+            </child>
+            <child type="overlay">
+              <object class="GtkBox" id="empty">
+                <property name="orientation">vertical</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="spacing">9</property>
+                <child><object class="GtkImage"><property name="icon-name">folder-download-symbolic</property><property name="pixel-size">27</property><style><class name="empty-icon"/></style></object></child>
+                <child><object class="GtkLabel"><property name="label">No downloads yet</property><style><class name="empty-title"/></style></object></child>
+                <child><object class="GtkLabel"><property name="label">Add an HTTP or HTTPS link to start a transfer.</property><style><class name="muted"/></style></object></child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox" id="actions">
+            <property name="spacing">6</property>
+            <property name="visible">false</property>
+            <style><class name="actions"/></style>
+            <child><object class="GtkButton" id="pause"><property name="label">Pause</property><style><class name="secondary"/></style></object></child>
+            <child><object class="GtkButton" id="resume"><property name="label">Resume</property><style><class name="primary"/></style></object></child>
+            <child><object class="GtkButton" id="replace"><property name="label">Update link</property><style><class name="secondary"/></style></object></child>
+            <child><object class="GtkButton" id="restart"><property name="label">Restart</property><style><class name="secondary"/></style></object></child>
+            <child><object class="GtkButton" id="remove"><property name="label">Remove</property><style><class name="danger"/></style></object></child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">12</property>
+            <style><class name="footer"/></style>
+            <child><object class="GtkLabel" id="summary"><property name="xalign">0</property><style><class name="muted"/></style></object></child>
+            <child><object class="GtkLabel" id="status"><property name="xalign">0</property><property name="hexpand">true</property><property name="ellipsize">end</property><style><class name="muted"/></style></object></child>
+            <child>
+              <object class="GtkMenuButton" id="settings">
+                <property name="icon-name">emblem-system-symbolic</property>
+                <property name="tooltip-text">Updates</property>
+                <property name="popover">preferences</property>
+                <style><class name="settings"/></style>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
   </object>

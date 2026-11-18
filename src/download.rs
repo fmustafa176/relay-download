@@ -227,6 +227,16 @@ impl Queue {
 
     pub fn close(&mut self) -> bool {
         self.closing = true;
+        let mut dirty = false;
+        for job in &mut self.jobs {
+            if job.status == "Queued" {
+                job.status = "Paused".into();
+                dirty = true;
+            }
+        }
+        if dirty {
+            let _ = self.save();
+        }
         for cancel in self.workers.values() {
             cancel.store(true, Ordering::Relaxed);
         }
