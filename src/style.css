@@ -1,0 +1,17 @@
+window, window.background { background-color: transparent; color: #eef0f7; }
+headerbar.chrome { background: rgba(18, 22, 34, 0.89); color: #eef0f7; border-radius: 16px 16px 0 0; border: 0; box-shadow: none; min-height: 40px; }
+.shell { background: rgba(17, 20, 29, 0.77); border-radius: 0 0 16px 16px; padding: 10px 12px 12px; }
+.panel { background: rgba(20, 22, 28, 0.94); border-radius: 12px; }
+list { background: transparent; color: #edf0f8; padding: 7px; }
+row { padding: 9px; border-radius: 7px; }
+row:selected { background: #37405a; }
+.pill { background: rgba(177, 182, 201, 0.19); border-radius: 20px; padding: 7px 14px; }
+.muted { color: #c5cada; }
+button { background: rgba(150, 160, 191, 0.14); color: #f1f3fa; border-radius: 9px; border: 0; box-shadow: none; }
+button:hover { background: #414959; }
+button:disabled { color: #a7abc0; opacity: 0.55; }
+button.dot { min-width: 11px; min-height: 11px; padding: 0; margin: 0; border-radius: 100%; }
+button.yellow { background: #f2b938; }
+button.green { background: #78c958; }
+button.red { background: #ed685b; }
+dialog { background: #232733; color: #f4f4f7; }

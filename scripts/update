@@ -1,0 +1,45 @@
+#!/bin/sh
+set -eu
+mode=${1:---check}
+case "$mode" in --check|--apply) ;; *) echo "Use --check or --apply." >&2; exit 2 ;; esac
+directory=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+prefix=$(CDPATH= cd -- "$directory/../.." && pwd)
+if [ ! -s "$directory/github-url" ]; then
+    echo "No GitHub repository is configured for this installation."
+    exit 0
+fi
+remote=$(cat "$directory/github-url")
+case "$remote" in https://github.com/*/*) ;; *) echo "The configured repository must be on GitHub." >&2; exit 1 ;; esac
+export GIT_TERMINAL_PROMPT=0
+current=$("$prefix/bin/relay" --version | sed -n 's/.*(\([^()]*\))$/\1/p')
+ref=$(git -c http.lowSpeedLimit=1 -c http.lowSpeedTime=15 ls-remote --exit-code "$remote" HEAD | cut -f1)
+if [ -z "$ref" ]; then
+    echo "Could not check the GitHub repository." >&2
+    exit 1
+fi
+if [ "$current" = "$ref" ]; then
+    echo "Relay is up to date."
+    exit 0
+fi
+if [ "$mode" = "--check" ]; then
+    echo "A GitHub update is available."
+    exit 0
+fi
+
+exec 9>"$directory/update.lock"
+if ! flock -n 9; then
+    echo "An update is already running." >&2
+    exit 1
+fi
+checkout=$(mktemp -d)
+trap 'rm -rf -- "$checkout"' EXIT
+git -c http.lowSpeedLimit=1 -c http.lowSpeedTime=15 clone --quiet "$remote" "$checkout"
+git -C "$checkout" checkout --quiet --detach "$ref"
+if git -C "$checkout" cat-file -e "$current^{commit}" 2>/dev/null &&
+    ! git -C "$checkout" merge-base --is-ancestor "$current" "$ref"; then
+    echo "GitHub history changed. Reinstall from the intended revision." >&2
+    exit 1
+fi
+RELAY_PREFIX="$prefix" RELAY_REVISION="$ref" RELAY_GITHUB_REPO="$remote" \
+    "$checkout/install.sh" >&2
+echo "Update installed. Restart Relay to use it."

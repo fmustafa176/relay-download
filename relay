@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+cd -- "$(dirname -- "$0")"
+for binary in dist/bin/relay target/release/relay target/debug/relay; do
+    if [ -x "$binary" ]; then
+        exec "$binary" "$@"
+    fi
+done
+echo "Build Relay with cargo build --release or run ./install.sh." >&2
+exit 1
